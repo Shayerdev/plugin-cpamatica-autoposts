@@ -13,4 +13,5 @@ interface ICpamaticaAutoPostBase
     public function activate(ICpamaticaAutoPostsActions $activateInstance): void;
     public function diactivate(ICpamaticaAutoPostsActions $deactivateInstance): void;
     public function uninstall(ICpamaticaAutoPostsUninstall $uninstallInstance): void;
+    public function apiEndpoints(): void;
 }

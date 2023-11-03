@@ -4,7 +4,6 @@ namespace CAP\Exception;
 
 class ExceptionDatabaseSettings extends \Exception
 {
-
     /**
      * Url
      *

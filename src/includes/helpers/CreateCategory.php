@@ -42,6 +42,10 @@ class CreateCategory implements ICreateCategory
      */
     public function insert(): int
     {
-        return (int) wp_create_category($this->name, $this->categoryParent);
+        if (function_exists('wp_insert_term')) {
+            return (int) wp_insert_term($this->name, 'category')['term_id'];
+        } else {
+            throw new \Error('wp_insert_term function not found');
+        }
     }
 }

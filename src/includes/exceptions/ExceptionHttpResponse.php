@@ -4,7 +4,6 @@ namespace CAP\Exception;
 
 class ExceptionHttpResponse extends \Exception
 {
-
     /**
      * @var mixed
      */

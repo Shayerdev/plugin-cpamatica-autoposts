@@ -12,35 +12,35 @@ class HttpCurl implements IHttpCurl
      *
      * @var string
      */
-    public $url = "";
+    protected $url = "";
 
     /**
      * Http method
      *
      * @var string
      */
-    public $method = "GET";
+    protected $method = "GET";
 
     /**
      * Content type
      *
      * @var string
      */
-    public $contentType = "text/html";
+    protected $contentType = "text/html";
 
     /**
      * Accept Content
      *
      * @var string
      */
-    public $acceptContent = "application/x-www-form-urlencoded";
+    protected $acceptContent = "application/x-www-form-urlencoded";
 
     /**
      * Parse response data to Json
      *
      * @var bool
      */
-    public $jsonParse = false;
+    protected $jsonParse = false;
 
     public function __construct()
     {
@@ -93,19 +93,19 @@ class HttpCurl implements IHttpCurl
 
     /**
      * @param $headers
-     * @return array|string[]
+     * @return array|string
      * @throws ExceptionHttpResponse
      */
-    public function query($headers): array
+    public function query($headers): array|string
     {
-        $curl = curl_init();
+
 
         $combinedString = '';
         if (isset($headers)) {
-            $myArray = array('key' => 'X-Auth-w', 'val' => 'asdasd');
-            $combinedString = $myArray['key'] . ': ' . $myArray['val'];
+            $combinedString = $headers['key'] . ': ' . $headers['val'];
         }
 
+        $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => $this->url,
             CURLOPT_RETURNTRANSFER => true,
@@ -120,17 +120,11 @@ class HttpCurl implements IHttpCurl
 
         $response = curl_exec($curl);
         $httpStatusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
-        if ($httpStatusCode !== 200 || $httpStatusCode !== 201) {
-            throw new ExceptionHttpResponse("Http return invalid data. Http status code {$httpStatusCode}");
+        curl_close($curl);
+        if ($httpStatusCode === 200 || $httpStatusCode === 201) {
+            return json_decode($response);
+        } else {
+            throw new ExceptionHttpResponse('Some problem with service. Data not found');
         }
-
-        if ($this->jsonParse) {
-            return json_decode($response, true);
-        }
-        if (is_string($response)) {
-            return [$response];
-        }
-        return (array)$response;
     }
 }

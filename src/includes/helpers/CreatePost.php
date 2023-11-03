@@ -3,6 +3,7 @@
 namespace CAP\helpers;
 
 use CAP\interfaces\helpers\ICreatePost;
+use DateTime;
 
 class CreatePost implements ICreatePost
 {
@@ -112,13 +113,20 @@ class CreatePost implements ICreatePost
             'post_content' => $this->content,
             'post_status' => $this->statusPost,
             'post_category' => [$this->category],
-            'post_type' => $this->typePost
+            'post_type' => $this->typePost,
+            'post_date' => $this->randomMonthDate()
         );
 
-        if (!empty($this->metaFields)) {
-            $dataPost = array_merge($dataPost, array('meta_input' => $this->metaFields));
-        }
-
         return wp_insert_post($dataPost);
+    }
+
+    private function randomMonthDate(): string
+    {
+        $currentDate = new DateTime();
+        $monthAgo = new DateTime('-1 month');
+        $randomDate = mt_rand($monthAgo->getTimestamp(), $currentDate->getTimestamp());
+        $randomDateObj = new DateTime();
+        $randomDateObj->setTimestamp($randomDate);
+        return $randomDateObj->format('Y-m-d H:i:s');
     }
 }

@@ -8,7 +8,6 @@ use CAP\interfaces\model\IDatabaseSettings;
 
 class DatabaseSettings implements IDatabaseSettings
 {
-
     /**
      * Database name
      *

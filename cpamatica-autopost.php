@@ -24,6 +24,10 @@ if (!class_exists('CpamaticaAutoPosts')) {
     // Create Plugin instance
     $cpamaticaAutoPosts = CpamaticaAutoPosts::getInstance();
 
+    $cpamaticaAutoPosts->apiEndpoints();
+    $cpamaticaAutoPosts->metaboxes();
+    $cpamaticaAutoPosts->shortcode();
+
     // Create activate instance
     $cpamaticaAutoPostsActivate = new actions\CpamaticaAutoPostsActivate(__FILE__);
     $cpamaticaAutoPosts->activate($cpamaticaAutoPostsActivate);

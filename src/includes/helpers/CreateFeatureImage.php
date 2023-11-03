@@ -18,7 +18,7 @@ class CreateFeatureImage implements ICreateFeatureImage
     public $imageUrl = '';
 
     /**
-     * Post Id
+     * Post id
      *
      * @var int
      */
@@ -64,5 +64,16 @@ class CreateFeatureImage implements ICreateFeatureImage
     public function insert(): int
     {
         return (int) media_sideload_image($this->imageUrl, $this->postId, $this->postTitle, $this->returnType);
+    }
+
+    public function updateThumbPost($attachmentId)
+    {
+        $updatedPost = wp_update_post(array(
+            "ID" => $this->postId,
+            "post_thumbnail" => $attachmentId
+        ));
+        if (! is_wp_error($updatedPost)) {
+            update_post_meta($updatedPost, '_thumbnail_id', $attachmentId);
+        }
     }
 }

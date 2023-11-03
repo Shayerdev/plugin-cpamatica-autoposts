@@ -2,7 +2,10 @@
 
 namespace CAP;
 
+use CAP\endpoint\ApiCreatePosts;
 use CAP\interfaces\plugin\ICpamaticaAutoPostBase;
+use CAP\metaboxes\PostRating;
+use CAP\shortcode\PostsList;
 
 class CpamaticaAutoPosts implements ICpamaticaAutoPostBase
 {
@@ -24,6 +27,7 @@ class CpamaticaAutoPosts implements ICpamaticaAutoPostBase
      * @var string
      */
     public $name = 'Auto Posts by Cpamatica';
+
 
     /**
      * The plugin description
@@ -92,12 +96,30 @@ class CpamaticaAutoPosts implements ICpamaticaAutoPostBase
     {
         $this->settings = array(
             "author" => get_current_user_id(),
+            "slug_meta" => "cpmatica_meta_field_",
+            "secret_api_phrase" => "weneedsomelove",
+            "post_type" => "post",
             "url_posts" => "https://my.api.mockaroo.com/posts.json",
             "posts_url_auth" => array(
                 "key" => "X-API-Key",
                 "val" => "413dfbf0"
             )
         );
+    }
+
+    public function apiEndpoints(): void
+    {
+        (new ApiCreatePosts('wp', 'v2', 'loadposts/(?P<key>[a-z-]*)'))->init();
+    }
+
+    public function metaboxes(): void
+    {
+        (new PostRating('post_rating_metabox', 'Rating Metabox', 'post'))->init();
+    }
+
+    public function shortcode(): void
+    {
+        (new PostsList())->init();
     }
 
     public function activate($activateInstance): void
