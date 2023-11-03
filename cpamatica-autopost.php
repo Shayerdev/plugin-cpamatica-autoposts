@@ -20,6 +20,9 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
+define('CPAMATICA_AUTO_POSTS_PLUGIN_DIR', __DIR__);
+
+
 if (!class_exists('CpamaticaAutoPosts')) {
     // Create Plugin instance
     $cpamaticaAutoPosts = CpamaticaAutoPosts::getInstance();
@@ -27,6 +30,7 @@ if (!class_exists('CpamaticaAutoPosts')) {
     $cpamaticaAutoPosts->apiEndpoints();
     $cpamaticaAutoPosts->metaboxes();
     $cpamaticaAutoPosts->shortcode();
+    $cpamaticaAutoPosts->actions();
 
     // Create activate instance
     $cpamaticaAutoPostsActivate = new actions\CpamaticaAutoPostsActivate(__FILE__);

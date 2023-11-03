@@ -2,6 +2,7 @@
 
 namespace CAP;
 
+use CAP\actions\CpamaticaAutoPostsActions;
 use CAP\endpoint\ApiCreatePosts;
 use CAP\interfaces\plugin\ICpamaticaAutoPostBase;
 use CAP\metaboxes\PostRating;
@@ -97,6 +98,7 @@ class CpamaticaAutoPosts implements ICpamaticaAutoPostBase
         $this->settings = array(
             "author" => get_current_user_id(),
             "slug_meta" => "cpmatica_meta_field_",
+            "locale" => "cpamatica-auto-post",
             "secret_api_phrase" => "weneedsomelove",
             "post_type" => "post",
             "url_posts" => "https://my.api.mockaroo.com/posts.json",
@@ -115,6 +117,10 @@ class CpamaticaAutoPosts implements ICpamaticaAutoPostBase
     public function metaboxes(): void
     {
         (new PostRating('post_rating_metabox', 'Rating Metabox', 'post'))->init();
+    }
+
+    public function actions(){
+        new CpamaticaAutoPostsActions();
     }
 
     public function shortcode(): void

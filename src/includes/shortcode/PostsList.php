@@ -2,6 +2,7 @@
 
 namespace CAP\shortcode;
 
+use CAP\CpamaticaAutoPosts;
 use CAP\helpers\CreateShortcode;
 
 class PostsList extends CreateShortcode
@@ -22,9 +23,77 @@ class PostsList extends CreateShortcode
     {
         add_shortcode($this->name, function ($attr) {
             $attr = shortcode_atts(array(
-                'create_page_id' => '1',
-                'link_label' => 'Create Post'
+                'title' => 'Articles',
+                'count' => 5,
+                'sort' => 'date',
+                'ids' => []
             ), $attr, $this->name);
+
+                do_action('init_postlist_shortcode');
+
+                $args = array(
+                    'post_type' => CpamaticaAutoPosts::getInstance()->settings['post_type'],
+                    'post_status' => 'publish',
+                    'posts_per_page' => is_string($attr['count']) ? intval($attr['count']) : $attr['count'],
+                    'orderby' => $attr['sort'],
+                );
+
+                // Filter by ids
+                if (!empty($attr['ids'])) {
+                    $args['post__in'] = array_map('intval', explode(',', $attr['ids']));
+                }
+
+                // FIlter by title
+                if ($attr['sort'] === 'title') {
+                    $args['orderby'] = 'title';
+                }
+
+                // Filter by rating
+                if ($attr['sort'] === 'rating') {
+                    $args['meta_key'] = 'meta_my_rating_field'; // Замените на имя вашего метаполя
+                    $args['orderby'] = 'meta_value_num';
+                }
+
+                $posts = new \WP_Query($args);
+                $content  = '';
+
+                if($posts->have_posts()){
+                    while($posts->have_posts()){
+                        $posts->the_post();
+                        $img = get_the_post_thumbnail(get_the_ID(), 'thumbnail');
+                        $title = get_the_title();
+                        $link = get_the_permalink();
+                        $rating = get_post_meta(get_the_ID(), CpamaticaAutoPosts::getInstance()->settings['slug_meta'] . 'rating', true);
+                        $category = wp_get_post_categories(get_the_ID())[0];
+
+
+                        $category_row = sprintf("<div class='row-category'>%s</div>", $category);
+                        $title_row = sprintf("<a href='%s'><h4>%s</h4></a>", $link, $title);
+                        $bottom_row = sprintf("
+                            <div class='row-bottom'>
+                                <a href='%s'>%s</a>
+                                <div class='left-col'><span class='rating'>%s</span><a rel='nofollow' target='_blank' href='%s'>%s</a></div>
+                            </div>
+                         ", $link, __('Read More', 'cpamatica-auto-post'), $rating, $link, __('Visit site', 'cpamatica-auto-post'));
+
+                        $article = sprintf("
+                            <article class='post-%s'>
+                                <div class='image-banner'>%s</div>
+                                <div class='content'>%s %s %s</div>
+                            </article>", get_the_ID(), $img, $category_row, $title_row, $bottom_row);
+                        $content .= $article;
+                    }
+                } else {
+                    $content = sprintf("<p>%s</p>", __('Articles empty', 'cpamatica-auto-post'));
+                }
+
+                $section = sprintf(
+                    "<section class='%s'><div class='container'><h2>%s</h2>%s</div></section>",
+                    'cpmaticaautopost',
+                    !empty($attr['title']) ? $attr['title'] : __('Articles', 'cpamatica-auto-post'),
+                    $content
+                );
+                return $section;
         });
     }
 }
