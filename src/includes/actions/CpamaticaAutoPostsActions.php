@@ -11,8 +11,9 @@ class CpamaticaAutoPostsActions
         self::postListShortcode();
     }
 
-    public static function postListShortcode(){
-        add_action('init_postlist_shortcode', function(){
+    public static function postListShortcode()
+    {
+        add_action('init_postlist_shortcode', function () {
             new CreateStyle(array(
                 'name' => 'cpamatica-shortcode-style',
                 'src'  => plugin_dir_url(CPAMATICA_AUTO_POSTS_PLUGIN_DIR) . 'cpamaticaAutoposts/src/frontend/assets/src/css/style.css',
@@ -22,5 +23,4 @@ class CpamaticaAutoPostsActions
             ));
         });
     }
-
 }

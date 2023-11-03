@@ -2,7 +2,8 @@
 
 namespace CAP\helpers;
 
-class CreateStyle extends CreateAssets{
+class CreateStyle extends CreateAssets
+{
     /**
      * Style constructor.
      * @param $options
@@ -12,7 +13,3 @@ class CreateStyle extends CreateAssets{
         parent::__construct('style', $options);
     }
 }
-
-
-
-

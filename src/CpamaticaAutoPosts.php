@@ -5,6 +5,7 @@ namespace CAP;
 use CAP\actions\CpamaticaAutoPostsActions;
 use CAP\endpoint\ApiCreatePosts;
 use CAP\interfaces\plugin\ICpamaticaAutoPostBase;
+use CAP\metaboxes\PostLink;
 use CAP\metaboxes\PostRating;
 use CAP\shortcode\PostsList;
 
@@ -117,9 +118,11 @@ class CpamaticaAutoPosts implements ICpamaticaAutoPostBase
     public function metaboxes(): void
     {
         (new PostRating('post_rating_metabox', 'Rating Metabox', 'post'))->init();
+        (new PostLink('post_link_metabox', 'Link Metabox', 'post'))->init();
     }
 
-    public function actions(){
+    public function actions()
+    {
         new CpamaticaAutoPostsActions();
     }
 

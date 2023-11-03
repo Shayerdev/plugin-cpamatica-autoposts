@@ -76,6 +76,16 @@ class CpamaticaAutoPostsBuilder
             $createImage->updateThumbPost($createdImage);
             $buildPost = array_merge($buildPost, array('post_thumbnail' => $createdImage));
 
+            // Append Link
+            if (!empty($servicePost->site_link)) {
+                $linkField = new CreateMetafield($createdPost);
+                $ratingFieldRes = $linkField->update('link', $servicePost->site_link);
+                if ($ratingFieldRes) {
+                    $buildPost = array_merge($buildPost, array('meta_link' => $servicePost->site_link));
+                }
+            }
+
+            // Append rating
             if (!empty($servicePost->rating)) {
                 $ratingField = new CreateMetafield($createdPost);
                 $round = round($servicePost->rating, 2);
@@ -86,8 +96,6 @@ class CpamaticaAutoPostsBuilder
                 }
             }
 
-
-            // Append Rating
             $uploadedData[] = $buildPost;
         }
         return $uploadedData;

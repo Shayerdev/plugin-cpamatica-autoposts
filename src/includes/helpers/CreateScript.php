@@ -2,7 +2,8 @@
 
 namespace CAP\helpers;
 
-class CreateScript extends CreateAssets{
+class CreateScript extends CreateAssets
+{
     /**
      * Script constructor.
      * @param $options
@@ -12,4 +13,3 @@ class CreateScript extends CreateAssets{
         parent::__construct('script', $options);
     }
 }
-

@@ -1,5 +1,8 @@
 :root{
     --main-black: #262625;
+    --main-purple: #6045CB;
+    --secondary-text-nonfocus: #ABA5C5;
+    --secondary-text-nonfocu: #ABA5C5;
 }
 .cpmaticaautopost{
     max-width: 820px !important;
@@ -18,11 +21,16 @@
     gap:  25px;
     flex-flow: wrap row;
     justify-content: space-between;
-    align-content: flex-start;
-    align-items: flex-start;
+    align-items: stretch;
     background: #FFF;
+    align-content: stretch;
     margin-bottom:  15px;
     box-shadow: 0px 1px 20px 0px rgba(15, 15, 15, 0.10);
+}
+.cpmaticaautopost article .row-category{
+    font: normal 500 14px/20px 'Roboto', 'sans-serif';
+    color: var(--secondary-text-nonfocu);
+    cursor: default;
 }
 .cpmaticaautopost article .image-banner{
     width:  350px;
@@ -48,14 +56,43 @@
     text-decoration: none;
 }
 .cpmaticaautopost article .content h4{
-    max-height: 60px;
+    max-height: 40px;
     display: block;
     overflow: hidden;
-    font: normal bold 20px/28px 'Roboto', sans-serif;
+    font: normal bold 20px/22px 'Roboto', sans-serif;
+}
+.cpmaticaautopost article > *{
+    width: 100%;
 }
 .cpmaticaautopost article .row-bottom{
     display: flex;
     justify-content: space-between;
     align-items: center;
     align-content: center;
+}
+.cpmaticaautopost article .row-bottom > a{
+    color: var(--main-purple);
+    font: normal 16px/25px 'Roboto', 'sans-serif';
+    text-transform: capitalize;
+
+}
+.cpmaticaautopost article .left-col{
+    display: flex;
+    flex-flow: wrap row;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+    gap:  20px;
+}
+.cpmaticaautopost article .left-col a{
+    display: inline-block;
+    padding:  8px 20px;
+    color: #fff;
+    background: var(--main-purple);
+    font: normal 18px/25px 'Roboto', 'sans-serif';
+}
+.cpmaticaautopost span.rating{
+    color: var(--secondary-text-nonfocus);
+    font: normal 14px/20px 'Roboto', 'sans-serif';
+    cursor: default;
 }
