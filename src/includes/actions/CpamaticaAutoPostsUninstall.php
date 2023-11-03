@@ -1,18 +1,23 @@
 <?php
 
-    namespace CAP\actions;
+namespace CAP\actions;
 
-    use CAP\Exception\ExceptionDatabaseSettings;
-    use CAP\interfaces\model\IDatabaseSettings;
-    use CAP\model\settings\DatabaseSettings;
-    use CAP\interfaces\actions\ICpamaticaAutoPostsUninstall;
+use CAP\Exception\ExceptionDatabaseSettings;
+use CAP\model\settings\DatabaseSettings;
+use CAP\interfaces\actions\ICpamaticaAutoPostsUninstall;
 
 class CpamaticaAutoPostsUninstall implements ICpamaticaAutoPostsUninstall
 {
+    /**
+     * File
+     *
+     * @var string
+     */
     public $file_plugin;
 
-    public $settings;
-
+    /**
+     * @param string $file_plugin
+     */
     public function __construct(string $file_plugin)
     {
         $this->file_plugin = $file_plugin;

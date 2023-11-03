@@ -1,8 +1,8 @@
 <?php
 
-    namespace CAP\interfaces\actions;
+namespace CAP\interfaces\actions;
 
-    use CAP\interfaces\model\IDatabaseSettings;
+use CAP\interfaces\model\IDatabaseSettings;
 
 interface ICpamaticaAutoPostsUninstall
 {

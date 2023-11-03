@@ -1,10 +1,10 @@
 <?php
 
-    namespace CAP\actions;
+namespace CAP\actions;
 
-    use CAP\interfaces\model\IDatabaseSettings;
-    use CAP\model\settings\DatabaseSettings;
-    use CAP\interfaces\actions\ICpamaticaAutoPostsActions;
+use CAP\interfaces\model\IDatabaseSettings;
+use CAP\model\settings\DatabaseSettings;
+use CAP\interfaces\actions\ICpamaticaAutoPostsActions;
 
 class CpamaticaAutoPostsDeactivate implements ICpamaticaAutoPostsActions
 {
@@ -12,10 +12,14 @@ class CpamaticaAutoPostsDeactivate implements ICpamaticaAutoPostsActions
 
     public $settings;
 
+    /**
+     * @param string $file_plugin
+     */
     public function __construct(string $file_plugin)
     {
         $this->file_plugin = $file_plugin;
     }
+
     public function init(): void
     {
         register_deactivation_hook($this->file_plugin, function () {
@@ -24,6 +28,10 @@ class CpamaticaAutoPostsDeactivate implements ICpamaticaAutoPostsActions
         });
     }
 
+    /**
+     * @param IDatabaseSettings $dbSettings
+     * @return void
+     */
     public function callback_action(IDatabaseSettings $dbSettings): void
     {
         // Some callback

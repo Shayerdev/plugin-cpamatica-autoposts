@@ -9,10 +9,16 @@ use CAP\interfaces\actions\ICpamaticaAutoPostsActions;
 
 class CpamaticaAutoPostsActivate implements ICpamaticaAutoPostsActions
 {
+    /**
+     * File string
+     *
+     * @var string
+     */
     public $file_plugin;
 
-    public $settings;
-
+    /**
+     * @param string $file_plugin
+     */
     public function __construct(string $file_plugin)
     {
         $this->file_plugin = $file_plugin;
@@ -25,6 +31,10 @@ class CpamaticaAutoPostsActivate implements ICpamaticaAutoPostsActions
         });
     }
 
+    /**
+     * @param IDatabaseSettings $dbSettings
+     * @return void
+     */
     public function callback_action(IDatabaseSettings $dbSettings): void
     {
         try {

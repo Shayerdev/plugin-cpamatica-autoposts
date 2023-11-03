@@ -4,8 +4,19 @@ namespace CAP\Exception;
 
 class ExceptionDatabaseSettings extends \Exception
 {
+
+    /**
+     * Url
+     *
+     * @var mixed
+     */
     private $url;
 
+    /**
+     * @param $message
+     * @param $code
+     * @param \Throwable|null $previous
+     */
     public function __construct($message = "", $code = 0, \Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);

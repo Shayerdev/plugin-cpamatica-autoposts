@@ -10,14 +10,25 @@ require_once(ABSPATH . 'wp-admin/includes/image.php');
 
 class CreateFeatureImage implements ICreateFeatureImage
 {
-
     /**
      * Image Url
      *
      * @var string
      */
     public $imageUrl = '';
+
+    /**
+     * Post Id
+     *
+     * @var int
+     */
     public $postId;
+
+    /**
+     * Post title
+     *
+     * @var string
+     */
     public $postTitle;
 
     /**
@@ -38,12 +49,20 @@ class CreateFeatureImage implements ICreateFeatureImage
         $this->returnType = 'id';
     }
 
-    public function setImageUrl($imageUrl) : void
+    /**
+     * @param $imageUrl
+     * @return void
+     */
+    public function setImageUrl($imageUrl): void
     {
         $this->imageUrl = $imageUrl;
     }
 
-    public function insert() : int{
+    /**
+     * @return int
+     */
+    public function insert(): int
+    {
         return (int) media_sideload_image($this->imageUrl, $this->postId, $this->postTitle, $this->returnType);
     }
 }

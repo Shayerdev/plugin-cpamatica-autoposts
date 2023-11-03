@@ -8,6 +8,12 @@ use CAP\interfaces\model\IDatabaseSettings;
 
 class DatabaseSettings implements IDatabaseSettings
 {
+
+    /**
+     * Database name
+     *
+     * @var string
+     */
     private $db_name = 'cpamatica_settings';
 
     public function __construct()

@@ -46,30 +46,56 @@ class HttpCurl implements IHttpCurl
     {
     }
 
+    /**
+     * @param $url
+     * @return void
+     */
     public function setUrl($url): void
     {
         $this->url = $url;
     }
 
+    /**
+     * @param $method
+     * @return void
+     */
     public function setMethod($method): void
     {
         $this->method = $method;
     }
 
+    /**
+     * @param $ct
+     * @return void
+     */
     public function setContentType($ct): void
     {
         $this->contentType = $ct;
     }
 
+    /**
+     * @param $ca
+     * @return void
+     */
     public function setContentAccept($ca): void
     {
         $this->acceptContent = $ca;
     }
 
+    /**
+     * @param $json
+     * @return void
+     */
     public function setJsonParse($json): void
     {
         $this->jsonParse = $json;
     }
+
+    /**
+     * @param $headers
+     * @return array|string[]
+     * @throws ExceptionHttpResponse
+     */
     public function query($headers): array
     {
         $curl = curl_init();

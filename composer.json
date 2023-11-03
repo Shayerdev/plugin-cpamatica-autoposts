@@ -27,6 +27,7 @@
             "CAP\\Exception\\" : "src/includes/exceptions",
             "CAP\\model\\settings\\" : "src/includes/models",
             "CAP\\actions\\" : "src/includes/actions",
+            "CAP\\interfaces\\model\\" : "src/includes/interfaces/models",
             "CAP\\interfaces\\plugin\\" : "src/includes/interfaces/plugin",
             "CAP\\interfaces\\actions\\" : "src/includes/interfaces/actions",
             "CAP\\interfaces\\helpers\\" : "src/includes/interfaces/helpers",
