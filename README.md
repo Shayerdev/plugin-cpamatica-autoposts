@@ -1,0 +1,26 @@
+> Develop WordPress plugin for test task
+# Auto Posts WordPress plugin 
+#### This plugin is designed to automatically create posts at a specific url, which has a json post format. This plugin creates posts by URL, defines a category that is automatically created, loads the image into feature images, etc. The addition of posts is indicated after a certain period of time via cron.
+## Development guide
+### Clone plugin repository
+```bash
+git clone https://github.com/Shayerdev/plugin-cpamatica-autoposts.git
+cd plugin-cpamatica-autoposts
+```
+### Install development dependency.
+```bash
+composer install
+```
+> **Warning:** <a href="https://getcomposer.org/" target="_blank">Composer</a> could have been installed in your machine. Check this by composer -h in terminal
+### Update autoload files
+```bash
+composer build
+```
+### Test code format by PHP CodeSniffer (PSR-12)
+```bash
+vendor/bin/phpcs --standard=PSR12 ./src
+```
+### Autofix Code Format
+```bash
+vendor/bin/phpcbf --standard=PSR12 ./src
+```

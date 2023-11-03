@@ -11,8 +11,28 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
+    "scripts": {
+        "build": "composer dump-autoload"
+    },
+    "require": {
+        "php": "^7.3 || ^8.0",
+        "ext-json": "*"
+    },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "CAP\\" : "src/",
+            "CAP\\Exception\\" : "src/includes/exceptions",
+            "CAP\\model\\settings\\" : "src/includes/models",
+            "CAP\\actions\\" : "src/includes/actions",
+            "CAP\\interfaces\\plugin\\" : "src/includes/interfaces/plugin",
+            "CAP\\interfaces\\actions\\" : "src/includes/interfaces/actions",
+            "CAP\\interfaces\\helpers\\" : "src/includes/interfaces/helpers",
+            "CAP\\interfaces\\http\\" : "src/includes/interfaces/http",
+            "CAP\\http\\" : "src/includes/http",
+            "CAP\\helpers\\" : "src/includes/helpers"
+        }
     }
 }
