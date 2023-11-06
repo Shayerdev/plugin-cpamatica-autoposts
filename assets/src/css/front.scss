@@ -48,6 +48,9 @@
       display: flex;
       flex-flow: column wrap;
       justify-content: space-between;
+      a{
+        text-decoration: none;
+      }
       a.title-post{
         text-decoration: none;
         max-height: 45px;
