@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/vendor/autoload.php';
+
 use CAP\Exception\ExceptionDatabaseSettings;
 use CAP\model\settings\DatabaseSettings;
 
