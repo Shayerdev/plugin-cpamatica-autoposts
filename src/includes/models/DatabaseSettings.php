@@ -56,10 +56,10 @@ class DatabaseSettings implements IDatabaseSettings
     {
         global $wpdb;
         $table_name = $wpdb->prefix . $this->db_name;
-        $sql = "DROP TABLE IF EXISTS $table_name";
+        $sql = "DROP TABLE IF EXISTS {$table_name}";
         $wpdb->query($sql);
         if ($wpdb->last_error) {
-            throw new ExceptionDatabaseSettings("Database Settings: Table {$this->db_name} not deleted.");
+            throw new ExceptionDatabaseSettings("Database Settings: Table $this->db_name not deleted.");
         }
     }
 

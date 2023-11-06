@@ -103,15 +103,12 @@ class HttpCurl implements IHttpCurl
 
     /**
      * Query to another site api
-     *
+     * @return string|array
      * @param $headers
-     * @return array|string
      * @throws ExceptionHttpResponse
      */
-    public function query($headers): array|string
+    public function query($headers)
     {
-
-
         $combinedString = '';
         if (isset($headers)) {
             $combinedString = $headers['key'] . ': ' . $headers['val'];

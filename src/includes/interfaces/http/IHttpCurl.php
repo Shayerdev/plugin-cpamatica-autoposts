@@ -9,5 +9,4 @@ interface IHttpCurl
     public function setUrl(string $url): void;
     public function setContentAccept(string $ca): void;
     public function setJsonParse(bool $json): void;
-    public function query(array $headers): array|string;
 }
