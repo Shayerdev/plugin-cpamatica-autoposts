@@ -2,7 +2,6 @@
 
 namespace CAP\actions;
 
-use CAP\CpamaticaAutoPosts;
 use CAP\Exception\ExceptionHttpResponse;
 use CAP\helpers\CreateCategory;
 use CAP\helpers\CreateFeatureImage;
@@ -34,9 +33,9 @@ class CpamaticaAutoPostsBuilder
         $postService = new HttpCurl();
         $postService->setJsonParse(true);
         $postService->setContentType('application/json');
-        $postService->setUrl("https://my.api.mockaroo.com/posts.json");
+        $postService->setUrl(CpamaticaAutoPostsSettings::getUrlPosts());
         try {
-            return $postService->query(array('key' => 'X-API-Key', 'val' => '413dfbf0'));
+            return $postService->query(array('key' => CpamaticaAutoPostsSettings::getAuthKey(), 'val' => CpamaticaAutoPostsSettings::getAuthVal()));
         } catch (ExceptionHttpResponse $e) {
             throw new ExceptionHttpResponse($e->getMessage());
         }
@@ -48,7 +47,7 @@ class CpamaticaAutoPostsBuilder
         foreach ($this->dataService as $servicePost) {
             // Filter Append by title
             $titlePost = wp_strip_all_tags($servicePost->title);
-            $findPostByTitle = get_posts(array('title' => wp_strip_all_tags($titlePost), 'numberposts' => 1, 'post_type' => CpamaticaAutoPosts::getInstance()->settings['post_type']));
+            $findPostByTitle = get_posts(array('title' => wp_strip_all_tags($titlePost), 'numberposts' => 1, 'post_type' => CpamaticaAutoPostsSettings::getPostType()));
             if (!empty($findPostByTitle)) {
                 break;
             }

@@ -6,10 +6,11 @@ class CreateStyle extends CreateAssets
 {
     /**
      * Style constructor.
-     * @param $options
+     * @param array $options
+     * @param bool $forAdmin
      */
-    public function __construct($options)
+    public function __construct($options, $forAdmin = false)
     {
-        parent::__construct('style', $options);
+        parent::__construct('style', $options, $forAdmin);
     }
 }

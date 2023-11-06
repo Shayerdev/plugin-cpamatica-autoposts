@@ -6,10 +6,11 @@ class CreateScript extends CreateAssets
 {
     /**
      * Script constructor.
-     * @param $options
+     * @param array $options
+     * @param bool $forAdmin
      */
-    public function __construct($options)
+    public function __construct($options, $forAdmin)
     {
-        parent::__construct('script', $options);
+        parent::__construct('script', $options, $forAdmin);
     }
 }

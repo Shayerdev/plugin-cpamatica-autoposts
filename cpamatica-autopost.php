@@ -20,17 +20,21 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-define('CPAMATICA_AUTO_POSTS_PLUGIN_DIR', __DIR__);
-
+# Basic plugin dir
+const CPAMATICA_AUTO_POSTS_PLUGIN_DIR = __FILE__;
 
 if (!class_exists('CpamaticaAutoPosts')) {
+
     // Create Plugin instance
     $cpamaticaAutoPosts = CpamaticaAutoPosts::getInstance();
 
+    // Load basic Instance
+    $cpamaticaAutoPosts->defines();
     $cpamaticaAutoPosts->apiEndpoints();
     $cpamaticaAutoPosts->metaboxes();
     $cpamaticaAutoPosts->shortcode();
     $cpamaticaAutoPosts->actions();
+    $cpamaticaAutoPosts->adminPages();
 
     // Create activate instance
     $cpamaticaAutoPostsActivate = new actions\CpamaticaAutoPostsActivate(__FILE__);
@@ -39,8 +43,4 @@ if (!class_exists('CpamaticaAutoPosts')) {
     // Create deactivate instance
     $cpamaticaAutoPostsDeactivate = new actions\CpamaticaAutoPostsDeactivate(__FILE__);
     $cpamaticaAutoPosts->diactivate($cpamaticaAutoPostsDeactivate);
-
-    // Create uninstall instance
-    $cpamaticaAutoPostsUnistall = new actions\CpamaticaAutoPostsUninstall(__FILE__);
-    $cpamaticaAutoPosts->uninstall($cpamaticaAutoPostsUnistall);
 }

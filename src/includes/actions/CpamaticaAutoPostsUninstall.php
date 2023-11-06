@@ -24,7 +24,7 @@ class CpamaticaAutoPostsUninstall implements ICpamaticaAutoPostsUninstall
     }
     public function init(): void
     {
-        register_uninstall_hook($this->file_plugin, array($this, 'callback_action'));
+        register_uninstall_hook($this->file_plugin, $this->callback_action());
     }
 
     public function callback_action(): void

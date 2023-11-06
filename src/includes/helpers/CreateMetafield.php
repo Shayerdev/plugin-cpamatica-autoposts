@@ -21,7 +21,7 @@ class CreateMetafield
     public function __construct(int $postId)
     {
         $this->postId = $postId;
-        $this->prefix = CpamaticaAutoPosts::getInstance()->settings["slug_meta"];
+        $this->prefix = CPAMATICA_AP_SLUG_META;
     }
     public function update(string $field, $value): bool
     {

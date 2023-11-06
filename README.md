@@ -24,3 +24,23 @@ vendor/bin/phpcs --standard=PSR12 ./src
 ```bash
 vendor/bin/phpcbf --standard=PSR12 ./src
 ```
+### For compile css/js you have must use Webpack
+```bash
+npm install
+```
+### For development webpack css/js 
+```bash
+npm run watch
+```
+### For build webpack css/js
+```bash
+npm run build
+```
+
+## Next steps after Download plugin and activate
+- Go to plugin setting page (CPAM AutoPosts)
+- See instruction for use
+- Now you have link for upload a new post **(Update posts url)**
+- You also append this link to cron job for auto upload post
+- Copy example shortcode and paste to block shortcode to your page/post
+- Enjoy ❤️

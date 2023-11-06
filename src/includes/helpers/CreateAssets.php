@@ -1,31 +1,41 @@
 <?php
 
-    namespace CAP\helpers;
+namespace CAP\helpers;
 
 class CreateAssets
 {
-    protected $type, $options;
+    protected $type, $options, $forAdmin;
 
     /**
      * Assets constructor.
-     * @param $type
-     * @param $options
+     * @param string $type
+     * @param array $options
+     * @param bool $forAdmin
      */
-    public function __construct($type, $options)
+    public function __construct(string $type, array $options, bool $forAdmin = false)
     {
         $this->type = $type;
         $this->options = $options;
+        $this->forAdmin = $forAdmin;
 
         # Init hook append File
         $this->connect();
     }
 
-    public function connect()
+    public function connect(): void
     {
-        if (is_admin()) {
-            return false;
+        if (is_admin() && !$this->forAdmin) {
+            return;
         }
-        $this->type === 'style' ? self::connectStyle() : $this->connectScript();
+        if ($this->type === 'style') {
+            (!$this->forAdmin)
+                ? add_action('wp_enqueue_scripts', array($this, 'connectStyle'))
+                : add_action('admin_enqueue_scripts', array($this, 'connectStyle'));
+        } else {
+            (!$this->forAdmin)
+                ? add_action('wp_enqueue_scripts', array($this, 'connectScript'))
+                : add_action('admin_enqueue_scripts', array($this, 'connectScript'));
+        }
     }
 
     public function connectStyle()

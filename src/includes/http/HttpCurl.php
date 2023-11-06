@@ -47,6 +47,8 @@ class HttpCurl implements IHttpCurl
     }
 
     /**
+     * Set Url query
+     *
      * @param $url
      * @return void
      */
@@ -56,6 +58,8 @@ class HttpCurl implements IHttpCurl
     }
 
     /**
+     * Set Method POST|GET|PATCH|DELETE
+     *
      * @param $method
      * @return void
      */
@@ -65,6 +69,8 @@ class HttpCurl implements IHttpCurl
     }
 
     /**
+     * Set Content Type
+     *
      * @param $ct
      * @return void
      */
@@ -74,6 +80,8 @@ class HttpCurl implements IHttpCurl
     }
 
     /**
+     * Set Content accept
+     *
      * @param $ca
      * @return void
      */
@@ -83,6 +91,8 @@ class HttpCurl implements IHttpCurl
     }
 
     /**
+     * Set Json parse
+     *
      * @param $json
      * @return void
      */
@@ -92,6 +102,8 @@ class HttpCurl implements IHttpCurl
     }
 
     /**
+     * Query to another site api
+     *
      * @param $headers
      * @return array|string
      * @throws ExceptionHttpResponse

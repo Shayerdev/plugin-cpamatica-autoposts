@@ -2,7 +2,6 @@
 
 namespace CAP\metaboxes;
 
-use CAP\CpamaticaAutoPosts;
 use CAP\helpers\CreateMetabox;
 
 class PostRating extends CreateMetabox
@@ -23,7 +22,7 @@ class PostRating extends CreateMetabox
      */
     public function callback($post)
     {
-        $field_label = CpamaticaAutoPosts::getInstance()->settings["slug_meta"] . 'rating';
+        $field_label = CPAMATICA_AP_SLUG_META . 'rating';
         $get_meta_rating = get_post_meta($post->ID, $field_label, true);
         if (empty($get_meta_rating)) {
             echo 'Rating empty';

@@ -3,7 +3,7 @@
 namespace CAP\endpoint;
 
 use CAP\actions\CpamaticaAutoPostsBuilder;
-use CAP\CpamaticaAutoPosts;
+use CAP\actions\CpamaticaAutoPostsSettings;
 use CAP\Exception\ExceptionHttpResponse;
 use CAP\helpers\CreateEndpoint;
 
@@ -18,7 +18,7 @@ class ApiCreatePosts extends CreateEndpoint
     {
         // Verify user
         $userKey = $request->get_param('key');
-        $secretKey = CpamaticaAutoPosts::getInstance()->settings['secret_api_phrase'];
+        $secretKey = CpamaticaAutoPostsSettings::getApiPhrase();
         if (empty($userKey) || $secretKey !== $userKey) {
             return new \WP_Error('key_anvalid', 'Key access is invalid', array( 'status' => 401 ));
         }

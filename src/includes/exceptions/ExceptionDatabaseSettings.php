@@ -12,11 +12,11 @@ class ExceptionDatabaseSettings extends \Exception
     private $url;
 
     /**
-     * @param $message
-     * @param $code
+     * @param string $message
+     * @param int $code
      * @param \Throwable|null $previous
      */
-    public function __construct($message = "", $code = 0, \Throwable $previous = null)
+    public function __construct(string $message = "", int $code = 0, \Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
         $this->url = $_SERVER['REQUEST_URI'];

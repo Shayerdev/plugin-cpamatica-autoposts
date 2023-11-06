@@ -26,6 +26,7 @@
         "psr-4": {
             "CAP\\" : "src/",
             "CAP\\Exception\\" : "src/includes/exceptions",
+            "CAP\\abstractions\\widgets\\" : "src/includes/abstractions/widgets",
             "CAP\\model\\settings\\" : "src/includes/models",
             "CAP\\actions\\" : "src/includes/actions",
             "CAP\\interfaces\\model\\" : "src/includes/interfaces/models",
@@ -37,7 +38,9 @@
             "CAP\\helpers\\" : "src/includes/helpers",
             "CAP\\endpoint\\" : "src/includes/endpoints",
             "CAP\\metaboxes\\" : "src/admin/Metaboxes",
-            "CAP\\shortcode\\" : "src/includes/shortcode"
+            "CAP\\shortcode\\" : "src/includes/shortcode",
+            "CAP\\admin\\pages\\" : "src/admin/Pages",
+            "CAP\\admin\\widgets\\" : "src/admin/Widgets"
         }
     }
 }

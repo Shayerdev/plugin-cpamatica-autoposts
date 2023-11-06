@@ -2,7 +2,6 @@
 
 namespace CAP\model\settings;
 
-use CAP\CpamaticaAutoPosts;
 use CAP\Exception\ExceptionDatabaseSettings;
 use CAP\interfaces\model\IDatabaseSettings;
 
@@ -13,7 +12,7 @@ class DatabaseSettings implements IDatabaseSettings
      *
      * @var string
      */
-    private $db_name = 'cpamatica_settings';
+    private $db_name = CPAMATICA_TABLE_NAME;
 
     public function __construct()
     {
@@ -31,10 +30,12 @@ class DatabaseSettings implements IDatabaseSettings
         $table_name = $wpdb->prefix . $this->db_name;
 
         $sql = "CREATE TABLE IF NOT EXISTS $table_name (
-            author varchar(255),
-            url_posts varchar(255),
-            auth_key varchar(255),
-            auth_val varchar(255)
+            " . CPAMATICA_TABLE_FIELD_AUTHOR . "        varchar(255),
+            " . CPAMATICA_TABLE_FIELD_URL . "           varchar(255),
+            " . CPAMATICA_TABLE_FIELD_URL_A_KEY . "     varchar(255),
+            " . CPAMATICA_TABLE_FIELD_URL_A_VAL . "     varchar(255),
+            " . CPAMATICA_TABLE_FIELD_URL_POST_TYPE . " varchar(255),
+            " . CPAMATICA_TABLE_FIELD_API_PHRASE . "    varchar(255)
         )";
 
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -63,6 +64,8 @@ class DatabaseSettings implements IDatabaseSettings
     }
 
     /**
+     * Append Value (default)
+     *
      * @return void
      * @throws ExceptionDatabaseSettings
      */
@@ -70,20 +73,23 @@ class DatabaseSettings implements IDatabaseSettings
     {
         global $wpdb;
         $table_name = $wpdb->prefix . $this->db_name;
-        $pluginInitializerData = CpamaticaAutoPosts::getInstance()->settings;
-        $author = $pluginInitializerData['author'];
-        $url_posts = $pluginInitializerData['url_posts'];
-        $auth_key = $pluginInitializerData['posts_url_auth']['key'];
-        $auth_val = $pluginInitializerData['posts_url_auth']['val'];
 
         $defaultSettings = $wpdb->prepare(
             "INSERT INTO {$table_name}
-            (author, url_posts, auth_key, auth_val)
-            VALUES (%s, %s, %s, %s)",
-            $author,
-            $url_posts,
-            $auth_key,
-            $auth_val
+            (" . CPAMATICA_TABLE_FIELD_AUTHOR . ", 
+            " . CPAMATICA_TABLE_FIELD_URL . ", 
+            " . CPAMATICA_TABLE_FIELD_URL_A_KEY . ",
+            " . CPAMATICA_TABLE_FIELD_URL_A_VAL . ", 
+            " . CPAMATICA_TABLE_FIELD_URL_POST_TYPE . ",
+            " . CPAMATICA_TABLE_FIELD_API_PHRASE . "
+            )
+            VALUES (%s, %s, %s, %s, %s, %s)",
+            AUTHOR,
+            CPAMATICA_AP_DEF_URL_POSTS,
+            CPAMATICA_AP_DEF_URL_AUTH_K,
+            CPAMATICA_AP_DEF_URL_AUTH_V,
+            CPAMATICA_AP_DEF_TYPE_POST,
+            CPAMATICA_AP_SECRET_API_PHRASE
         );
 
         $wpdb->query($defaultSettings);
@@ -113,9 +119,5 @@ class DatabaseSettings implements IDatabaseSettings
             throw new ExceptionDatabaseSettings("Database Settings: Table {$this->db_name} not deleted.");
         }
         return $response ? $response : [];
-    }
-
-    public function updateSettings(): void
-    {
     }
 }

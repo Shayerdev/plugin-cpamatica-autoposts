@@ -1,9 +1,8 @@
 <?php
 
-    namespace CAP\metaboxes;
+namespace CAP\metaboxes;
 
-    use CAP\CpamaticaAutoPosts;
-    use CAP\helpers\CreateMetabox;
+use CAP\helpers\CreateMetabox;
 
 class PostLink extends CreateMetabox
 {
@@ -23,7 +22,7 @@ class PostLink extends CreateMetabox
      */
     public function callback($post)
     {
-        $field_label = CpamaticaAutoPosts::getInstance()->settings["slug_meta"] . 'link';
+        $field_label = CPAMATICA_AP_SLUG_META . 'link';
         $get_meta_rating = get_post_meta($post->ID, $field_label, true);
         if (empty($get_meta_rating)) {
             echo 'Link empty';

@@ -2,6 +2,7 @@
 
 namespace CAP\shortcode;
 
+use CAP\actions\CpamaticaAutoPostsSettings;
 use CAP\CpamaticaAutoPosts;
 use CAP\helpers\CreateShortcode;
 
@@ -16,7 +17,7 @@ class PostsList extends CreateShortcode
 
     public function __construct()
     {
-        $this->name = "posts_list_shortcode";
+        $this->name = CPAMATICA_AP_SHORTCODE_POSTS_TAG;
         parent::__construct(array($this, 'callback'));
     }
     public function callback()
@@ -29,33 +30,33 @@ class PostsList extends CreateShortcode
                 'ids' => []
             ), $attr, $this->name);
 
-                do_action('init_postlist_shortcode');
+            do_action('init_postlist_shortcode');
 
-                $args = array(
-                    'post_type' => CpamaticaAutoPosts::getInstance()->settings['post_type'],
-                    'post_status' => 'publish',
-                    'posts_per_page' => is_string($attr['count']) ? intval($attr['count']) : $attr['count'],
-                    'orderby' => $attr['sort'],
-                );
+            $args = array(
+                'post_type' => CpamaticaAutoPostsSettings::getPostType(),
+                'post_status' => 'publish',
+                'posts_per_page' => is_string($attr['count']) ? intval($attr['count']) : $attr['count'],
+                'orderby' => $attr['sort'],
+            );
 
-                // Filter by ids
+            // Filter by ids
             if (!empty($attr['ids'])) {
                 $args['post__in'] = array_map('intval', explode(',', $attr['ids']));
             }
 
-                // FIlter by title
+            // FIlter by title
             if ($attr['sort'] === 'title') {
                 $args['orderby'] = 'title';
             }
 
-                // Filter by rating
+            // Filter by rating
             if ($attr['sort'] === 'rating') {
                 $args['meta_key'] = 'meta_my_rating_field'; // Замените на имя вашего метаполя
                 $args['orderby'] = 'meta_value_num';
             }
 
-                $posts = new \WP_Query($args);
-                $content  = '';
+            $posts = new \WP_Query($args);
+            $content  = '';
 
             if ($posts->have_posts()) {
                 while ($posts->have_posts()) {
@@ -63,20 +64,20 @@ class PostsList extends CreateShortcode
                     $img = get_the_post_thumbnail(get_the_ID(), 'thumbnail');
                     $title = get_the_title();
                     $link = get_the_permalink();
-                    $rating = get_post_meta(get_the_ID(), CpamaticaAutoPosts::getInstance()->settings['slug_meta'] . 'rating', true);
-                    $nf_link = get_post_meta(get_the_ID(), CpamaticaAutoPosts::getInstance()->settings['slug_meta'] . 'link', true);
+                    $rating = get_post_meta(get_the_ID(), CPAMATICA_AP_SLUG_META . 'rating', true);
+                    $nf_link = get_post_meta(get_the_ID(), CPAMATICA_AP_SLUG_META . 'link', true);
                     $category = wp_get_post_categories(get_the_ID())[0];
 
                     $category_row = sprintf("<div class='row-category'>%s</div>", get_category($category)->name);
                     $title_row = sprintf("<a href='%s'><h4>%s</h4></a>", $link, $title);
                     $rating_row = (!empty($rating)) ? sprintf("<span class='rating'>⭐️ %s</span>", $rating) : '';
-                    $nf_link_row = (!empty($nf_link)) ? sprintf("<a rel='nofollow' target='_blank' href='%s'>%s</a>", $nf_link, __('Visit site', 'cpamatica-auto-post')) : '';
+                    $nf_link_row = (!empty($nf_link)) ? sprintf("<a rel='nofollow' target='_blank' href='%s'>%s</a>", $nf_link, __('Visit site', CPAMATICA_AP_LOCALE)) : '';
                         $bottom_row = sprintf("
                             <div class='row-bottom'>
                                 <a href='%s'>%s</a>
                                 <div class='left-col'>%s %s</div>
                             </div>
-                         ", $link, __('Read More', 'cpamatica-auto-post'), $rating_row, $nf_link_row);
+                         ", $link, __('Read More', CPAMATICA_AP_LOCALE), $rating_row, $nf_link_row);
 
                     $article = sprintf("
                             <article class='post-%s'>
@@ -86,16 +87,15 @@ class PostsList extends CreateShortcode
                     $content .= $article;
                 }
             } else {
-                $content = sprintf("<p>%s</p>", __('Articles empty', 'cpamatica-auto-post'));
+                $content = sprintf("<p>%s</p>", __('Articles empty', CPAMATICA_AP_LOCALE));
             }
-
-                $section = sprintf(
-                    "<section class='%s'><div class='container'><h2>%s</h2>%s</div></section>",
-                    'cpmaticaautopost',
-                    !empty($attr['title']) ? $attr['title'] : __('Articles', 'cpamatica-auto-post'),
-                    $content
-                );
-                return $section;
+            $section = sprintf(
+                "<section class='%s'><div class='container'><h2>%s</h2>%s</div></section>",
+                'cpmaticaautopost',
+                !empty($attr['title']) ? $attr['title'] : __('Articles', CPAMATICA_AP_LOCALE),
+                $content
+            );
+            return $section;
         });
     }
 }

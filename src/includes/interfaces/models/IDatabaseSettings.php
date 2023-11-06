@@ -8,5 +8,4 @@ interface IDatabaseSettings
     public function deleteTable(): void;
     public function append(): void;
     public function get(): array;
-    public function updateSettings(): void;
 }
