@@ -29,11 +29,11 @@ class CreateAssets
         }
         if ($this->type === 'style') {
             (!$this->forAdmin)
-                ? add_action('wp_enqueue_scripts', array($this, 'connectStyle'))
+                ? $this->connectStyle()
                 : add_action('admin_enqueue_scripts', array($this, 'connectStyle'));
         } else {
             (!$this->forAdmin)
-                ? add_action('wp_enqueue_scripts', array($this, 'connectScript'))
+                ? $this->connectScript()
                 : add_action('admin_enqueue_scripts', array($this, 'connectScript'));
         }
     }

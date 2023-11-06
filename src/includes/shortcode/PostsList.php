@@ -89,13 +89,12 @@ class PostsList extends CreateShortcode
             } else {
                 $content = sprintf("<p>%s</p>", __('Articles empty', CPAMATICA_AP_LOCALE));
             }
-            $section = sprintf(
+            return sprintf(
                 "<section class='%s'><div class='container'><h2>%s</h2>%s</div></section>",
                 'cpmaticaautopost',
                 !empty($attr['title']) ? $attr['title'] : __('Articles', CPAMATICA_AP_LOCALE),
                 $content
             );
-            return $section;
         });
     }
 }
