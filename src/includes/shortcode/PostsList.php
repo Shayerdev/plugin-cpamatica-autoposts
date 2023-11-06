@@ -69,7 +69,7 @@ class PostsList extends CreateShortcode
                     $category = wp_get_post_categories(get_the_ID())[0];
 
                     $category_row = sprintf("<div class='row-category'>%s</div>", get_category($category)->name);
-                    $title_row = sprintf("<a href='%s'><h4>%s</h4></a>", $link, $title);
+                    $title_row = sprintf("<a href='%s'>%s</a>", $link, $title);
                     $rating_row = (!empty($rating)) ? sprintf("<span class='rating'>⭐️ %s</span>", $rating) : '';
                     $nf_link_row = (!empty($nf_link)) ? sprintf("<a rel='nofollow' target='_blank' href='%s'>%s</a>", $nf_link, __('Visit site', CPAMATICA_AP_LOCALE)) : '';
                         $bottom_row = sprintf("
