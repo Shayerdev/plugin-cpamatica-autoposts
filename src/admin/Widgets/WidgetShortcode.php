@@ -20,7 +20,7 @@ class WidgetShortcode extends AdminWidgets
     public function render(): string
     {
         return sprintf(
-            "<div class='widget-shortcode'><span>[</span> %s %s %s %s %s<span>]</span></div>",
+            "<div class='widget-shortcode'><span>[</span>%s %s %s %s %s<span>]</span></div>",
             $this->shortcode,
             '<span>title=</span>"News"',
             '<span>count=</span>"5"',
