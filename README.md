@@ -43,4 +43,5 @@ npm run build
 - Now you have link for upload a new post **(Update posts url)**
 - You also append this link to cron job for auto upload post
 - Copy example shortcode and paste to block shortcode to your page/post
+- Not test on multi-lang site(s)
 - Enjoy ❤️
