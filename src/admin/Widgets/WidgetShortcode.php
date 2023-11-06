@@ -25,7 +25,7 @@ class WidgetShortcode extends AdminWidgets
             '<span>title=</span>"News"',
             '<span>count=</span>"5"',
             '<span>sort=</span>"date"',
-            '<span>ids </span>"12,34"',
+            '<span>ids=</span>"12,34"',
         );
     }
 }
